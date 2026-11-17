@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f7f8" />
+  <title>เพื่อน AI — แชต AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-top">
+        <a class="brand" href="#" aria-label="เพื่อน AI หน้าหลัก"><span class="brand-mark">✳</span><span>เพื่อน<span class="brand-light"> AI</span></span></a>
+        <button class="icon-button sidebar-toggle" id="closeSidebar" aria-label="ปิดเมนู">×</button>
+      </div>
+      <button class="new-chat" id="newChat"><span class="plus">＋</span> แชตใหม่ <kbd>⌘ K</kbd></button>
+      <div class="history-heading">แชตล่าสุด</div>
+      <div class="history-list" id="historyList"></div>
+      <div class="sidebar-spacer"></div>
+      <div class="side-bottom">
+        <div class="status-row"><span class="status-dot"></span><span id="connectionLabel">โมเดลยังไม่โหลด</span><button class="text-link" id="openSettings">สถานะ</button></div>
+        <div class="profile"><div class="avatar user-avatar">ค</div><div class="profile-copy"><strong>คุณ</strong><span>บัญชีส่วนตัว</span></div><button class="icon-button more-button" aria-label="เมนูเพิ่มเติม">•••</button></div>
+      </div>
+    </aside>
+    <div class="mobile-scrim" id="scrim"></div>
+    <main class="main-area">
+      <header class="topbar"><button class="icon-button mobile-menu" id="openSidebar" aria-label="เปิดเมนู">☰</button><div class="model-switch"><span class="model-name">เพื่อน AI</span><span class="model-tag">ทำงานบนเครื่อง</span><span class="chevron">⌄</span></div><button class="top-settings" id="openSettingsTop"><span class="gear">⚙</span><span>โมเดล</span></button></header>
+      <section class="chat-area" id="chatArea">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark">✳</div>
+          <p class="eyebrow">ยินดีที่ได้รู้จัก</p>
+          <h1>วันนี้อยากให้ช่วยเรื่องอะไร?</h1>
+          <p class="welcome-subtitle">ถามได้ทุกเรื่อง คิดไอเดีย เขียนงาน หรือเรียนรู้สิ่งใหม่ไปด้วยกัน</p>
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="ช่วยคิดเมนูอาหารเย็นง่าย ๆ จากวัตถุดิบที่มีในตู้เย็น"><span class="suggestion-icon">◷</span><span><strong>หาไอเดีย</strong><small>มื้อเย็นทำง่าย ๆ</small></span><span class="arrow">↗</span></button>
+            <button class="suggestion" data-prompt="ช่วยวางแผนเที่ยวเชียงใหม่ 3 วัน แบบไม่เร่งรีบ"><span class="suggestion-icon">⌖</span><span><strong>วางแผนทริป</strong><small>เชียงใหม่ 3 วัน</small></span><span class="arrow">↗</span></button>
+            <button class="suggestion" data-prompt="อธิบายเรื่อง machine learning ให้เข้าใจง่าย พร้อมยกตัวอย่าง"><span class="suggestion-icon">▤</span><span><strong>เรียนรู้เรื่องใหม่</strong><small>Machine learning คืออะไร</small></span><span class="arrow">↗</span></button>
+            <button class="suggestion" data-prompt="ช่วยร่างข้อความขอบคุณเพื่อนร่วมงานที่ช่วยงานโปรเจกต์ให้หน่อย"><span class="suggestion-icon">✎</span><span><strong>ช่วยเขียน</strong><small>ข้อความขอบคุณเพื่อนร่วมงาน</small></span><span class="arrow">↗</span></button>
+          </div>
+        </div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+      </section>
+      <div class="composer-wrap">
+        <form class="composer" id="chatForm">
+          <textarea id="messageInput" rows="1" placeholder="ส่งข้อความถึงเพื่อน AI" aria-label="ข้อความของคุณ"></textarea>
+          <div class="composer-bottom"><div class="composer-hint"><span class="sparkle-small">✳</span> AI อาจตอบผิดพลาดได้ โปรดตรวจสอบข้อมูลสำคัญ</div><button class="send-button" id="sendButton" type="submit" aria-label="ส่งข้อความ"><span>↑</span></button></div>
+        </form>
+        <p class="powered">ประมวลผลบนเครื่องของคุณ · <button id="openSettingsBottom">สถานะโมเดล</button></p>
+      </div>
+    </main>
+  </div>
+  <dialog id="settingsDialog" class="settings-dialog">
+    <form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" aria-label="ปิด">×</button></form>
+    <div class="dialog-icon">✳</div><h2>โมเดล AI ในเครื่อง</h2><p class="dialog-intro">เพื่อน AI ใช้โมเดล Qwen ขนาดเล็กและประมวลผลบนอุปกรณ์ของคุณ ไม่ต้องใช้ API key ข้อความแชตไม่ถูกส่งไปยังบริการ AI</p>
+    <div class="model-card"><div class="model-card-head"><strong>Qwen2.5 · 0.5B</strong><span class="model-local-tag">ในเครื่อง</span></div><p>ดาวน์โหลดครั้งแรกประมาณ 1 GB · ต้องใช้เบราว์เซอร์ที่รองรับ WebGPU</p><div class="model-progress" id="modelProgressWrap" hidden><div class="progress-track"><div class="progress-fill" id="modelProgressFill"></div></div><span id="modelProgressText">กำลังเตรียมโมเดล…</span></div></div>
+    <div class="privacy-note"><span>ℹ️</span><span>การดาวน์โหลดโมเดลต้องใช้อินเทอร์เน็ตครั้งแรก หลังดาวน์โหลดแล้ว โมเดลจะถูกเก็บในแคชของเบราว์เซอร์ รุ่น 0.5B ใช้ทรัพยากรน้อย แต่ตอบได้ไม่เก่งเท่าโมเดลขนาดใหญ่</span></div>
+    <div class="dialog-actions"><span class="model-status-label" id="modelStatusLabel">ยังไม่ได้โหลด</span><button class="primary-button" id="loadModelButton" type="button">โหลดโมเดล</button></div>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
